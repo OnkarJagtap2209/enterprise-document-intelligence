@@ -36,7 +36,13 @@ class Settings:
     app_env: str
     document_dir: Path
     extracted_dir: Path
+    chunks_dir: Path
     chroma_db_path: Path
+    chroma_collection_name: str
+    embedding_model_name: str
+    embedding_batch_size: int
+    chunk_max_chars: int
+    chunk_overlap_chars: int
     log_level: str
 
     @classmethod
@@ -46,7 +52,18 @@ class Settings:
             app_env=os.getenv("APP_ENV", "development"),
             document_dir=Path(os.getenv("DOCUMENT_DIR", "data/documents")),
             extracted_dir=Path(os.getenv("EXTRACTED_DIR", "data/extracted")),
+            chunks_dir=Path(os.getenv("CHUNKS_DIR", "data/chunks")),
             chroma_db_path=Path(os.getenv("CHROMA_DB_PATH", "chroma_db")),
+            chroma_collection_name=os.getenv(
+                "CHROMA_COLLECTION_NAME", "enterprise_financial_chunks"
+            ),
+            embedding_model_name=os.getenv(
+                "EMBEDDING_MODEL_NAME",
+                "sentence-transformers/all-MiniLM-L6-v2",
+            ),
+            embedding_batch_size=int(os.getenv("EMBEDDING_BATCH_SIZE", "16")),
+            chunk_max_chars=int(os.getenv("CHUNK_MAX_CHARS", "1600")),
+            chunk_overlap_chars=int(os.getenv("CHUNK_OVERLAP_CHARS", "200")),
             log_level=os.getenv("LOG_LEVEL", "INFO").upper(),
         )
 

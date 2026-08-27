@@ -23,7 +23,18 @@ class FoundationTests(unittest.TestCase):
         self.assertEqual(settings.app_env, "test")
         self.assertEqual(settings.document_dir, Path("sample-documents"))
         self.assertEqual(settings.extracted_dir, Path("data/extracted"))
+        self.assertEqual(settings.chunks_dir, Path("data/chunks"))
         self.assertEqual(settings.chroma_db_path, Path("chroma_db"))
+        self.assertEqual(
+            settings.chroma_collection_name, "enterprise_financial_chunks"
+        )
+        self.assertEqual(
+            settings.embedding_model_name,
+            "sentence-transformers/all-MiniLM-L6-v2",
+        )
+        self.assertEqual(settings.embedding_batch_size, 16)
+        self.assertEqual(settings.chunk_max_chars, 1600)
+        self.assertEqual(settings.chunk_overlap_chars, 200)
         self.assertEqual(settings.log_level, "DEBUG")
 
     def test_process_environment_takes_precedence(self) -> None:

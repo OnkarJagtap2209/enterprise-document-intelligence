@@ -19,6 +19,7 @@ htmlcov/
 # Generated document/index data (the source corpus remains trackable)
 chroma_db/
 data/extracted/
+data/chunks/
 data/indexes/
 data/evaluation/reports/
 data/evaluation/traces/
