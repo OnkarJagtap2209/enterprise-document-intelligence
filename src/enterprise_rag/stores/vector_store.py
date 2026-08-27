@@ -160,7 +160,9 @@ class ChromaVectorStore:
         return _parse_query_response(response)
 
 
-def chunk_metadata_to_chroma(metadata: Mapping[str, Any]) -> dict[str, Any]:
+def chunk_metadata_to_chroma(
+    metadata: Mapping[str, Any], provenance: Sequence[Mapping[str, Any]] | None = None
+) -> dict[str, Any]:
     """Convert Phase 3 metadata to deterministic Chroma-compatible scalars."""
     required = (
         "chunk_id",
@@ -195,6 +197,10 @@ def chunk_metadata_to_chroma(metadata: Mapping[str, Any]) -> dict[str, Any]:
     if pages:
         converted["page_start"] = int(min(pages))
         converted["page_end"] = int(max(pages))
+    if provenance is not None:
+        if not isinstance(provenance, (list, tuple)):
+            raise VectorStoreError("provenance must be a list")
+        converted["provenance_json"] = _json_scalar([dict(item) for item in provenance])
     return converted
 
 

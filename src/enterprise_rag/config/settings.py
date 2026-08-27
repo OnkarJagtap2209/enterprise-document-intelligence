@@ -42,6 +42,10 @@ class Settings:
     embedding_model_name: str
     embedding_batch_size: int
     semantic_top_k: int
+    bm25_top_k: int
+    hybrid_top_k: int
+    hybrid_candidate_depth: int
+    rrf_k: int
     chunk_max_chars: int
     chunk_overlap_chars: int
     log_level: str
@@ -64,6 +68,12 @@ class Settings:
             ),
             embedding_batch_size=int(os.getenv("EMBEDDING_BATCH_SIZE", "16")),
             semantic_top_k=int(os.getenv("SEMANTIC_TOP_K", "5")),
+            bm25_top_k=int(os.getenv("BM25_TOP_K", "10")),
+            hybrid_top_k=int(os.getenv("HYBRID_TOP_K", "5")),
+            hybrid_candidate_depth=int(
+                os.getenv("HYBRID_CANDIDATE_DEPTH", "10")
+            ),
+            rrf_k=int(os.getenv("RRF_K", "60")),
             chunk_max_chars=int(os.getenv("CHUNK_MAX_CHARS", "1600")),
             chunk_overlap_chars=int(os.getenv("CHUNK_OVERLAP_CHARS", "200")),
             log_level=os.getenv("LOG_LEVEL", "INFO").upper(),

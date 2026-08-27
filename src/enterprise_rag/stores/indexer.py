@@ -43,7 +43,10 @@ class ChunkIndexer:
             embeddings = self.embedding_service.embed_documents(documents)
             ids = [chunk["metadata"]["chunk_id"] for chunk in batch]
             metadatas = [
-                chunk_metadata_to_chroma(chunk["metadata"]) for chunk in batch
+                chunk_metadata_to_chroma(
+                    chunk["metadata"], provenance=chunk.get("provenance")
+                )
+                for chunk in batch
             ]
             self.vector_store.upsert(ids, embeddings, documents, metadatas)
             embedded_count += len(embeddings)

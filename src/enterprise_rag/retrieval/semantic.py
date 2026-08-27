@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import json
 from typing import Any
 
 
@@ -20,6 +21,7 @@ class SemanticRetrievalResult:
     metadata: dict[str, Any]
     distance: float
     rank: int
+    provenance: tuple[dict[str, Any], ...] = ()
 
 
 class SemanticRetriever:
@@ -51,6 +53,7 @@ class SemanticRetriever:
                 metadata=match.metadata,
                 distance=match.distance,
                 rank=rank,
+                provenance=_parse_provenance(match.metadata.get("provenance_json")),
             )
             for rank, match in enumerate(matches, start=1)
         )
@@ -59,3 +62,15 @@ class SemanticRetriever:
 def _validate_top_k(top_k: int) -> None:
     if not isinstance(top_k, int) or isinstance(top_k, bool) or top_k <= 0:
         raise SemanticRetrievalError("top_k must be greater than zero")
+
+
+def _parse_provenance(value: Any) -> tuple[dict[str, Any], ...]:
+    if not isinstance(value, str):
+        return ()
+    try:
+        parsed = json.loads(value)
+    except json.JSONDecodeError:
+        return ()
+    if not isinstance(parsed, list):
+        return ()
+    return tuple(item for item in parsed if isinstance(item, dict))
