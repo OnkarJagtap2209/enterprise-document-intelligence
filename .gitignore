@@ -1,0 +1,30 @@
+# Local environments and secrets
+.venv/
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Test and tooling artifacts
+.coverage
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Generated document/index data (the source corpus remains trackable)
+chroma_db/
+data/extracted/
+data/indexes/
+data/evaluation/reports/
+data/evaluation/traces/
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
