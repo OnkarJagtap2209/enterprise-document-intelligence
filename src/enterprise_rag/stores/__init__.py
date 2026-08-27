@@ -9,6 +9,7 @@ from enterprise_rag.stores.indexer import (
 from enterprise_rag.stores.vector_store import (
     ChromaVectorStore,
     CollectionStats,
+    StoredVectorMatch,
     VectorStoreError,
     chunk_metadata_to_chroma,
 )
@@ -19,6 +20,7 @@ __all__ = [
     "CollectionStats",
     "IndexingError",
     "IndexingResult",
+    "StoredVectorMatch",
     "VectorStoreError",
     "chunk_metadata_to_chroma",
     "load_chunk_artifact",

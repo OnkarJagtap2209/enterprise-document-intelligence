@@ -33,6 +33,7 @@ class FoundationTests(unittest.TestCase):
             "sentence-transformers/all-MiniLM-L6-v2",
         )
         self.assertEqual(settings.embedding_batch_size, 16)
+        self.assertEqual(settings.semantic_top_k, 5)
         self.assertEqual(settings.chunk_max_chars, 1600)
         self.assertEqual(settings.chunk_overlap_chars, 200)
         self.assertEqual(settings.log_level, "DEBUG")

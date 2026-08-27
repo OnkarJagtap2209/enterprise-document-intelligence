@@ -10,14 +10,16 @@ generation. FastAPI and Streamlit will provide the backend and user interface.
 
 ## Current status
 
-Phases 1 through 4 establish the Python foundation, reusable Docling PDF
+Phases 1 through 5 establish the Python foundation, reusable Docling PDF
 ingestion, deterministic structure-aware chunking, and a persistent ChromaDB
-vector index. Ingestion writes Docling JSON under `data/extracted/`; chunking
-preserves headings, pages, provenance, and structured table rows under
-`data/chunks/`. The indexing layer embeds chunk content in batches and upserts
-it with deterministic chunk IDs. Retrieval, generation, evaluation, API, and
-UI behavior are planned but are not implemented yet. Development proceeds one
-approved phase at a time.
+vector index with semantic retrieval. Ingestion writes Docling JSON under
+`data/extracted/`; chunking preserves headings, pages, provenance, and
+structured table rows under `data/chunks/`. The indexing layer embeds chunk
+content in batches and upserts it with deterministic chunk IDs. Semantic
+retrieval embeds a query once and returns typed results in ChromaDB cosine-
+distance order. Hybrid retrieval, generation, evaluation, API, and UI behavior
+are planned but are not implemented yet. Development proceeds one approved
+phase at a time.
 
 ## Development setup
 
@@ -66,3 +68,7 @@ it, batch size, collection name, and persistent location with
 `EMBEDDING_MODEL_NAME`, `EMBEDDING_BATCH_SIZE`, `CHROMA_COLLECTION_NAME`, and
 `CHROMA_DB_PATH`. Re-indexing the same artifact safely replaces records with
 the same Phase 3 chunk IDs.
+
+The semantic retriever accepts query text and an optional `top_k`, defaulting
+to `SEMANTIC_TOP_K=5`. Results expose raw cosine distance, where lower values
+represent nearer vectors; no score conversion or reranking is applied.

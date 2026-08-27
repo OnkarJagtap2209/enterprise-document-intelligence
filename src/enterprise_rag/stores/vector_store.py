@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import json
+from math import isfinite
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
@@ -18,6 +19,16 @@ class CollectionStats:
     record_count: int
     metadata: dict[str, Any]
     configuration: dict[str, Any]
+
+
+@dataclass(frozen=True, slots=True)
+class StoredVectorMatch:
+    """One validated Chroma query match in collection ranking order."""
+
+    chunk_id: str
+    document: str
+    metadata: dict[str, Any]
+    distance: float
 
 
 class ChromaVectorStore:
@@ -120,6 +131,34 @@ class ChromaVectorStore:
             raise VectorStoreError("peek limit must be greater than zero")
         return self.collection.peek(limit=limit)
 
+    def semantic_query(
+        self, query_embedding: Sequence[float], top_k: int
+    ) -> tuple[StoredVectorMatch, ...]:
+        """Return nearest records ordered by Chroma cosine distance."""
+        if not isinstance(top_k, int) or isinstance(top_k, bool) or top_k <= 0:
+            raise VectorStoreError("top_k must be greater than zero")
+        if len(query_embedding) != self.embedding_dimension:
+            raise VectorStoreError("Query has an unexpected embedding dimension")
+        try:
+            vector = [float(value) for value in query_embedding]
+        except (TypeError, ValueError) as exc:
+            raise VectorStoreError("Query embedding contains a non-numeric value") from exc
+        if not all(isfinite(value) for value in vector):
+            raise VectorStoreError("Query embedding contains a non-finite value")
+
+        record_count = self.count()
+        if record_count == 0:
+            return ()
+        try:
+            response = self.collection.query(
+                query_embeddings=[vector],
+                n_results=min(top_k, record_count),
+                include=["documents", "metadatas", "distances"],
+            )
+        except Exception as exc:
+            raise VectorStoreError(f"Could not query vector records: {exc}") from exc
+        return _parse_query_response(response)
+
 
 def chunk_metadata_to_chroma(metadata: Mapping[str, Any]) -> dict[str, Any]:
     """Convert Phase 3 metadata to deterministic Chroma-compatible scalars."""
@@ -167,3 +206,44 @@ def _list_value(value: Any, field_name: str) -> list[Any]:
 
 def _json_scalar(value: Any) -> str:
     return json.dumps(value, ensure_ascii=False, separators=(",", ":"))
+
+
+def _parse_query_response(response: Mapping[str, Any]) -> tuple[StoredVectorMatch, ...]:
+    try:
+        ids = response["ids"][0]
+        documents = response["documents"][0]
+        metadatas = response["metadatas"][0]
+        distances = response["distances"][0]
+    except (KeyError, IndexError, TypeError) as exc:
+        raise VectorStoreError("ChromaDB returned a malformed query response") from exc
+    if not (len(ids) == len(documents) == len(metadatas) == len(distances)):
+        raise VectorStoreError("ChromaDB returned misaligned query results")
+
+    matches: list[StoredVectorMatch] = []
+    for chunk_id, document, metadata, distance in zip(
+        ids, documents, metadatas, distances
+    ):
+        if not isinstance(chunk_id, str) or not chunk_id:
+            raise VectorStoreError("ChromaDB returned an invalid chunk ID")
+        if not isinstance(document, str) or not document.strip():
+            raise VectorStoreError("ChromaDB returned missing chunk content")
+        if not isinstance(metadata, dict):
+            raise VectorStoreError("ChromaDB returned invalid chunk metadata")
+        if metadata.get("chunk_id") != chunk_id or not isinstance(
+            metadata.get("document_id"), str
+        ):
+            raise VectorStoreError("ChromaDB returned inconsistent chunk metadata")
+        if isinstance(distance, bool) or not isinstance(distance, (int, float)):
+            raise VectorStoreError("ChromaDB returned a non-numeric distance")
+        numeric_distance = float(distance)
+        if not isfinite(numeric_distance):
+            raise VectorStoreError("ChromaDB returned a non-finite distance")
+        matches.append(
+            StoredVectorMatch(
+                chunk_id=chunk_id,
+                document=document,
+                metadata=dict(metadata),
+                distance=numeric_distance,
+            )
+        )
+    return tuple(matches)

@@ -41,6 +41,7 @@ class Settings:
     chroma_collection_name: str
     embedding_model_name: str
     embedding_batch_size: int
+    semantic_top_k: int
     chunk_max_chars: int
     chunk_overlap_chars: int
     log_level: str
@@ -62,6 +63,7 @@ class Settings:
                 "sentence-transformers/all-MiniLM-L6-v2",
             ),
             embedding_batch_size=int(os.getenv("EMBEDDING_BATCH_SIZE", "16")),
+            semantic_top_k=int(os.getenv("SEMANTIC_TOP_K", "5")),
             chunk_max_chars=int(os.getenv("CHUNK_MAX_CHARS", "1600")),
             chunk_overlap_chars=int(os.getenv("CHUNK_OVERLAP_CHARS", "200")),
             log_level=os.getenv("LOG_LEVEL", "INFO").upper(),
