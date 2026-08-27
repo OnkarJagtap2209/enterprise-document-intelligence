@@ -46,6 +46,10 @@ class Settings:
     hybrid_top_k: int
     hybrid_candidate_depth: int
     rrf_k: int
+    reranker_enabled: bool
+    reranker_model_name: str
+    reranker_candidate_depth: int
+    reranker_top_k: int
     chunk_max_chars: int
     chunk_overlap_chars: int
     log_level: str
@@ -74,6 +78,10 @@ class Settings:
                 os.getenv("HYBRID_CANDIDATE_DEPTH", "10")
             ),
             rrf_k=int(os.getenv("RRF_K", "60")),
+            reranker_enabled=os.getenv("RERANKER_ENABLED", "false").lower() in ("1", "true", "yes", "on"),
+            reranker_model_name=os.getenv("RERANKER_MODEL_NAME", "cross-encoder/ms-marco-MiniLM-L6-v2"),
+            reranker_candidate_depth=int(os.getenv("RERANKER_CANDIDATE_DEPTH", "10")),
+            reranker_top_k=int(os.getenv("RERANKER_TOP_K", "5")),
             chunk_max_chars=int(os.getenv("CHUNK_MAX_CHARS", "1600")),
             chunk_overlap_chars=int(os.getenv("CHUNK_OVERLAP_CHARS", "200")),
             log_level=os.getenv("LOG_LEVEL", "INFO").upper(),
