@@ -1,0 +1,5 @@
+name: hybrid_rrf_reranker
+version: "1"
+chunking: structure_aware
+retrieval: semantic_bm25_rrf_cross_encoder
+top_k: 5

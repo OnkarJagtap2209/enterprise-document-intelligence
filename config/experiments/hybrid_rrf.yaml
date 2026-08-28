@@ -1,0 +1,5 @@
+name: hybrid_rrf
+version: "1"
+chunking: structure_aware
+retrieval: semantic_bm25_rrf
+top_k: 5

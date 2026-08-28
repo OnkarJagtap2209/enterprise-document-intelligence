@@ -50,6 +50,12 @@ class Settings:
     reranker_model_name: str
     reranker_candidate_depth: int
     reranker_top_k: int
+    gemini_api_key: str | None
+    gemini_model_name: str
+    context_max_chars: int
+    observability_enabled: bool
+    trace_persistence_enabled: bool
+    trace_path: Path
     chunk_max_chars: int
     chunk_overlap_chars: int
     log_level: str
@@ -82,6 +88,12 @@ class Settings:
             reranker_model_name=os.getenv("RERANKER_MODEL_NAME", "cross-encoder/ms-marco-MiniLM-L6-v2"),
             reranker_candidate_depth=int(os.getenv("RERANKER_CANDIDATE_DEPTH", "10")),
             reranker_top_k=int(os.getenv("RERANKER_TOP_K", "5")),
+            gemini_api_key=os.getenv("GEMINI_API_KEY"),
+            gemini_model_name=os.getenv("GEMINI_MODEL_NAME", "gemini-2.5-flash"),
+            context_max_chars=int(os.getenv("CONTEXT_MAX_CHARS", "12000")),
+            observability_enabled=os.getenv("OBSERVABILITY_ENABLED", "true").lower() in ("1", "true", "yes", "on"),
+            trace_persistence_enabled=os.getenv("TRACE_PERSISTENCE_ENABLED", "false").lower() in ("1", "true", "yes", "on"),
+            trace_path=Path(os.getenv("RUNTIME_TRACE_PATH", "data/traces/runtime.jsonl")),
             chunk_max_chars=int(os.getenv("CHUNK_MAX_CHARS", "1600")),
             chunk_overlap_chars=int(os.getenv("CHUNK_OVERLAP_CHARS", "200")),
             log_level=os.getenv("LOG_LEVEL", "INFO").upper(),

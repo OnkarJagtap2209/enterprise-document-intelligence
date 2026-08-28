@@ -1,0 +1,5 @@
+name: fixed_semantic
+version: "1"
+chunking: fixed
+retrieval: semantic
+top_k: 5

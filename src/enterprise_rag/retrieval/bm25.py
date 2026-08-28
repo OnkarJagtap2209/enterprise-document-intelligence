@@ -11,6 +11,7 @@ from typing import Any, Mapping, Sequence
 
 from enterprise_rag.stores.indexer import load_chunk_artifact
 from enterprise_rag.stores.vector_store import chunk_metadata_to_chroma
+from enterprise_rag.routing import QueryConstraints, matches_constraints
 
 _TOKEN_PATTERN = re.compile(
     r"(?:[$€£₹])?\d+(?:[.,]\d+)*%?|[^\W_]+(?:[./'-][^\W_]+)*",
@@ -102,7 +103,7 @@ class BM25Retriever:
         return len(self._documents)
 
     def retrieve(
-        self, query: str, top_k: int | None = None
+        self, query: str, top_k: int | None = None, metadata_filter: QueryConstraints | None = None
     ) -> tuple[BM25RetrievalResult, ...]:
         if not isinstance(query, str) or not query.strip():
             raise BM25RetrievalError("query must be a non-empty string")
@@ -115,6 +116,7 @@ class BM25Retriever:
         scored = [
             (self._score(document, query_terms), document)
             for document in self._documents
+            if metadata_filter is None or matches_constraints(document.metadata, metadata_filter)
         ]
         scored = [item for item in scored if item[0] > 0]
         scored.sort(key=lambda item: (-item[0], item[1].corpus_position))

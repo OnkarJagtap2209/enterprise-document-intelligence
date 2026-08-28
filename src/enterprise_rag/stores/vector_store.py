@@ -132,7 +132,7 @@ class ChromaVectorStore:
         return self.collection.peek(limit=limit)
 
     def semantic_query(
-        self, query_embedding: Sequence[float], top_k: int
+        self, query_embedding: Sequence[float], top_k: int, metadata_filter: Any | None = None
     ) -> tuple[StoredVectorMatch, ...]:
         """Return nearest records ordered by Chroma cosine distance."""
         if not isinstance(top_k, int) or isinstance(top_k, bool) or top_k <= 0:
@@ -150,10 +150,14 @@ class ChromaVectorStore:
         if record_count == 0:
             return ()
         try:
+            kwargs = {"query_embeddings": [vector], "n_results": min(top_k, record_count), "include": ["documents", "metadatas", "distances"]}
+            if metadata_filter is not None:
+                from enterprise_rag.routing import QueryConstraints
+                if isinstance(metadata_filter, QueryConstraints):
+                    where = {field: value for field, value in (("document_id", metadata_filter.document_id), ("source_filename", metadata_filter.source_filename), ("content_type", metadata_filter.content_type)) if value is not None}
+                    if where: kwargs["where"] = where
             response = self.collection.query(
-                query_embeddings=[vector],
-                n_results=min(top_k, record_count),
-                include=["documents", "metadatas", "distances"],
+                **kwargs,
             )
         except Exception as exc:
             raise VectorStoreError(f"Could not query vector records: {exc}") from exc

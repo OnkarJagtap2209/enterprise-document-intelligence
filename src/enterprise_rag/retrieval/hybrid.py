@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from typing import Any
 
 from enterprise_rag.retrieval.rrf import reciprocal_rank_fusion
+from enterprise_rag.routing import QueryConstraints
 
 
 class HybridRetrievalError(ValueError):
@@ -44,13 +45,17 @@ class HybridRetriever:
         self.candidate_depth = candidate_depth
         self.rrf_k = rrf_k
 
-    def retrieve(self, query: str, top_k: int | None = None) -> tuple[HybridRetrievalResult, ...]:
+    def retrieve(self, query: str, top_k: int | None = None, metadata_filter: QueryConstraints | None = None) -> tuple[HybridRetrievalResult, ...]:
         if not isinstance(query, str) or not query.strip():
             raise HybridRetrievalError("query must be a non-empty string")
         selected = self.default_top_k if top_k is None else top_k
         _validate_positive(selected, "top_k")
-        semantic = tuple(self.semantic_retriever.retrieve(query, top_k=self.candidate_depth))
-        lexical = tuple(self.bm25_retriever.retrieve(query, top_k=self.candidate_depth))
+        if metadata_filter is None:
+            semantic = tuple(self.semantic_retriever.retrieve(query, top_k=self.candidate_depth))
+            lexical = tuple(self.bm25_retriever.retrieve(query, top_k=self.candidate_depth))
+        else:
+            semantic = tuple(self.semantic_retriever.retrieve(query, top_k=self.candidate_depth, metadata_filter=metadata_filter))
+            lexical = tuple(self.bm25_retriever.retrieve(query, top_k=self.candidate_depth, metadata_filter=metadata_filter))
         rankings = {
             "semantic": tuple((item.chunk_id, item.rank) for item in semantic),
             "bm25": tuple((item.chunk_id, item.rank) for item in lexical),
