@@ -54,9 +54,24 @@ class GroundedGenerator:
         context = self.context_builder.build(results)
         generated = self.gemini.generate(build_grounded_prompt(question, context))
         valid = {item.chunk_id for item in context}
-        unknown = set(generated.source_ids) - valid
+        canonical_ids = _canonical_source_ids(generated.source_ids, valid)
+        unknown = set(canonical_ids) - valid
         if unknown: raise CitationValidationError("Unknown source IDs: " + ", ".join(sorted(unknown)))
+        if canonical_ids != generated.source_ids:
+            generated = GenerationResult(generated.answer, canonical_ids, generated.model_name, generated.usage)
         return generated, context
+
+
+def _canonical_source_ids(source_ids: Sequence[str], valid: set[str]) -> tuple[str, ...]:
+    """Resolve only unambiguous provider aliases to supplied context IDs."""
+    resolved: list[str] = []
+    for source_id in source_ids:
+        if source_id in valid:
+            resolved.append(source_id)
+            continue
+        aliases = [candidate for candidate in valid if candidate.endswith(source_id)]
+        resolved.append(aliases[0] if len(aliases) == 1 else source_id)
+    return tuple(resolved)
 
 def _extract_source_ids(response: Any, text: str) -> tuple[str, ...]:
     for value in (getattr(response, "source_ids", None), getattr(response, "parsed", None)):

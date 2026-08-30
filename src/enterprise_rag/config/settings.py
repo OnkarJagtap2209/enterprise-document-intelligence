@@ -79,7 +79,7 @@ class Settings:
             embedding_batch_size=int(os.getenv("EMBEDDING_BATCH_SIZE", "16")),
             semantic_top_k=int(os.getenv("SEMANTIC_TOP_K", "5")),
             bm25_top_k=int(os.getenv("BM25_TOP_K", "10")),
-            hybrid_top_k=int(os.getenv("HYBRID_TOP_K", "5")),
+            hybrid_top_k=int(os.getenv("HYBRID_TOP_K", "10")),
             hybrid_candidate_depth=int(
                 os.getenv("HYBRID_CANDIDATE_DEPTH", "10")
             ),

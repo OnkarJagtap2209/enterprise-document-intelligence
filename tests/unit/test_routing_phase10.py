@@ -7,8 +7,13 @@ class RoutingTests(unittest.TestCase):
         self.assertEqual(result.constraints, QueryConstraints(content_type="table", year=2027))
         self.assertFalse(result.clarification_required)
 
-    def test_conflicting_years_request_clarification(self):
-        result = understand_query("Compare 2026 and 2027 revenue")
+    def test_financial_period_years_do_not_request_clarification(self):
+        result = understand_query("Compare revenue in 2026 and 2027")
+        self.assertFalse(result.clarification_required)
+        self.assertIsNone(result.constraints.year)
+
+    def test_conflicting_document_years_request_clarification(self):
+        result = understand_query("Compare the 2026 annual report with the 2027 annual report")
         self.assertTrue(result.clarification_required)
         self.assertIsNone(result.retrieval_query)
 
@@ -17,5 +22,13 @@ class RoutingTests(unittest.TestCase):
         metadata = {"source_filename": "q1-26-2027.pdf", "content_type": "table"}
         self.assertTrue(matches_constraints(metadata, constraints))
         self.assertFalse(matches_constraints({"source_filename": "other.pdf", "content_type": "table"}, constraints))
+
+    def test_period_year_does_not_use_filename_substring(self):
+        self.assertTrue(matches_constraints(
+            {"source_filename": "q1-26-2027.pdf"}, QueryConstraints(year=2026)
+        ))
+        self.assertFalse(matches_constraints(
+            {"source_filename": "q1-26-2027.pdf", "period_year": 2027}, QueryConstraints(year=2026)
+        ))
 
 if __name__ == "__main__": unittest.main()

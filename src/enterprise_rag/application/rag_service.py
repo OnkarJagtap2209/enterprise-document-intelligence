@@ -4,6 +4,7 @@ from typing import Any
 from enterprise_rag.routing import understand_query
 from enterprise_rag.observability import RuntimeTracer
 from enterprise_rag.config import get_settings
+from enterprise_rag.stores.indexer import load_chunk_artifact
 
 @dataclass(frozen=True, slots=True)
 class QueryOutcome:
@@ -47,9 +48,19 @@ def build_default_service() -> RAGService:
     embedding = SentenceTransformerEmbeddingService(settings.embedding_model_name, settings.embedding_batch_size)
     store = ChromaVectorStore(settings.chroma_db_path, settings.chroma_collection_name, settings.embedding_model_name, embedding.dimension)
     semantic = SemanticRetriever(embedding, store, settings.semantic_top_k)
-    artifact = next(settings.chunks_dir.glob("*.chunks.json"), None)
-    if artifact is None: raise RuntimeError("No chunk artifact is available")
-    hybrid = HybridRetriever(semantic, BM25Retriever.from_chunk_artifact(artifact, settings.bm25_top_k), settings.hybrid_top_k, settings.hybrid_candidate_depth, settings.rrf_k)
+    artifacts = sorted(settings.chunks_dir.glob("*.chunks.json"))
+    if not artifacts: raise RuntimeError("No chunk artifact is available")
+    all_chunks = []
+    seen_chunk_ids: set[str] = set()
+    for artifact in artifacts:
+        _, chunks = load_chunk_artifact(artifact)
+        for chunk in chunks:
+            chunk_id = chunk.get("metadata", {}).get("chunk_id")
+            if chunk_id in seen_chunk_ids:
+                continue
+            seen_chunk_ids.add(chunk_id)
+            all_chunks.append(chunk)
+    hybrid = HybridRetriever(semantic, BM25Retriever(all_chunks, settings.bm25_top_k), settings.hybrid_top_k, settings.hybrid_candidate_depth, settings.rrf_k)
     reranker = None
     if settings.reranker_enabled:
         from enterprise_rag.reranking import CrossEncoderReranker
@@ -63,3 +74,7 @@ class LazyRAGService:
     def query(self, text):
         if self._service is None: self._service = build_default_service()
         return self._service.query(text)
+
+    def refresh(self) -> None:
+        """Rebuild retrieval state so newly indexed documents are visible."""
+        self._service = build_default_service()

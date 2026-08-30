@@ -163,7 +163,14 @@ def tokenize_financial_text(text: str) -> tuple[str, ...]:
     """Case-fold text while retaining financial numbers and punctuation."""
     if not isinstance(text, str):
         raise BM25RetrievalError("text to tokenize must be a string")
-    return tuple(token.casefold() for token in _TOKEN_PATTERN.findall(text))
+    return tuple(_normalize_token(token.casefold()) for token in _TOKEN_PATTERN.findall(text))
+
+
+def _normalize_token(token: str) -> str:
+    """Apply a minimal, deterministic singular/plural normalization."""
+    if len(token) > 3 and token.endswith("s") and not token.endswith("ss"):
+        return token[:-1]
+    return token
 
 
 def _build_document(chunk: Mapping[str, Any], position: int) -> _BM25Document:

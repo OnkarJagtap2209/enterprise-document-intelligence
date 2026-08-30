@@ -31,4 +31,11 @@ class Phase11Tests(unittest.TestCase):
             def generate(self, prompt): return GenerationResult("x", ("unknown",))
         with self.assertRaises(CitationValidationError): GroundedGenerator(SourceGemini(api_key="x", client=FakeClient())).generate("q", (result("a", "A"),))
 
+    def test_citation_alias_is_resolved_only_to_known_context_id(self):
+        class AliasGemini(GeminiService):
+            def generate(self, prompt): return GenerationResult("x", ("abc",))
+        item = result("chunk_abc", "A")
+        generated, _ = GroundedGenerator(AliasGemini(api_key="x", client=FakeClient())).generate("q", (item,))
+        self.assertEqual(generated.source_ids, ("chunk_abc",))
+
 if __name__ == "__main__": unittest.main()

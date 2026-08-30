@@ -19,3 +19,10 @@ class ClarificationResponse(BaseModel):
     clarification_required: bool = True
     clarification_question: str
     request_id: str
+
+class DocumentUploadResponse(BaseModel):
+    document_id: str
+    source_filename: str
+    chunk_count: int
+    indexed_count: int
+    status: str
