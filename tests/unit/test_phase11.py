@@ -5,7 +5,7 @@ from enterprise_rag.retrieval import HybridRetrievalResult
 def result(cid, content): return HybridRetrievalResult(cid, "doc", content, {"source_filename": "x.pdf"}, ({"ref": cid},), .1, {}, 1)
 
 class FakeResponse:
-    text = "Grounded answer"
+    text = '{"answer":"Grounded answer","source_ids":["a"]}'
 class FakeModels:
     def generate_content(self, **kwargs): return FakeResponse()
 class FakeClient:
@@ -23,6 +23,7 @@ class Phase11Tests(unittest.TestCase):
         output, returned = GroundedGenerator(GeminiService(api_key="x", client=FakeClient())).generate("What was revenue?", (result("a", "Revenue was 10"),))
         self.assertEqual(output.answer, "Grounded answer")
         self.assertEqual(returned[0].chunk_id, "a")
+        self.assertEqual(output.source_ids, ("a",))
 
     def test_missing_key_and_unknown_source(self):
         with self.assertRaises(GeminiGenerationError): GeminiService(client=FakeClient()).generate("x")

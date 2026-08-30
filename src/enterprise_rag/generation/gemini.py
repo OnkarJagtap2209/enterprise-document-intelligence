@@ -1,5 +1,6 @@
 """Isolated Gemini generation service with injectable client."""
 from dataclasses import dataclass
+import json
 import os
 from typing import Any, Sequence
 from .context_builder import ContextBuilder, ContextItem
@@ -26,12 +27,26 @@ class GeminiService:
                 self._client = genai.Client(api_key=self.api_key)
             except Exception as exc: raise GeminiGenerationError(f"Could not initialize Gemini: {exc}") from exc
         try:
-            response = self._client.models.generate_content(model=self.model_name, contents=prompt)
+            from google.genai import types
+            config = types.GenerateContentConfig(
+                response_mime_type="application/json",
+                response_schema={
+                    "type": "OBJECT",
+                    "properties": {
+                        "answer": {"type": "STRING"},
+                        "source_ids": {"type": "ARRAY", "items": {"type": "STRING"}},
+                    },
+                    "required": ["answer", "source_ids"],
+                },
+            )
+            response = self._client.models.generate_content(model=self.model_name, contents=prompt, config=config)
             text = getattr(response, "text", None)
         except Exception as exc: raise GeminiGenerationError(f"Gemini generation failed: {exc}") from exc
         if not isinstance(text, str) or not text.strip(): raise GeminiGenerationError("Gemini returned an empty answer")
+        source_ids = _extract_source_ids(response, text)
+        answer = _extract_answer(text) or text.strip()
         usage = getattr(response, "usage_metadata", None) or getattr(response, "usage", None)
-        return GenerationResult(text.strip(), (), self.model_name, usage)
+        return GenerationResult(answer, source_ids, self.model_name, usage)
 
 class GroundedGenerator:
     def __init__(self, gemini: GeminiService, context_builder: ContextBuilder | None = None): self.gemini, self.context_builder = gemini, context_builder or ContextBuilder()
@@ -41,4 +56,26 @@ class GroundedGenerator:
         valid = {item.chunk_id for item in context}
         unknown = set(generated.source_ids) - valid
         if unknown: raise CitationValidationError("Unknown source IDs: " + ", ".join(sorted(unknown)))
-        return GenerationResult(generated.answer, tuple(generated.source_ids)), context
+        return generated, context
+
+def _extract_source_ids(response: Any, text: str) -> tuple[str, ...]:
+    for value in (getattr(response, "source_ids", None), getattr(response, "parsed", None)):
+        if isinstance(value, dict): value = value.get("source_ids")
+        if isinstance(value, (list, tuple)) and all(isinstance(item, str) for item in value):
+            return tuple(value)
+    try:
+        payload = json.loads(text)
+    except (TypeError, json.JSONDecodeError):
+        return ()
+    if isinstance(payload, dict) and isinstance(payload.get("source_ids"), list):
+        ids = payload["source_ids"]
+        if all(isinstance(item, str) for item in ids): return tuple(ids)
+    return ()
+
+def _extract_answer(text: str) -> str | None:
+    try:
+        payload = json.loads(text)
+    except (TypeError, json.JSONDecodeError):
+        return None
+    answer = payload.get("answer") if isinstance(payload, dict) else None
+    return answer.strip() if isinstance(answer, str) and answer.strip() else None
