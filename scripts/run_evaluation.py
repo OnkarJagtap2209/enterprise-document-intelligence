@@ -1,4 +1,5 @@
 import argparse
+import json
 from pathlib import Path
 from enterprise_rag.evaluation import discover_datasets
 from enterprise_rag.evaluation import execute_one, persist_execution
@@ -8,7 +9,13 @@ def main() -> int:
     parser.add_argument("--validate-datasets", action="store_true")
     parser.add_argument("--run-one", nargs=2, metavar=("DATASET", "QUESTION_ID"))
     parser.add_argument("--results-dir", default="data/evaluation/results")
+    parser.add_argument("--inspect-result")
     args = parser.parse_args()
+    if args.inspect_result:
+        payload = json.loads(Path(args.inspect_result).read_text(encoding="utf-8"))
+        execution = payload.get("execution", {}); actual = payload.get("actual", {})
+        print(f"Question: {payload.get('question')}\nStatus: {execution.get('status')}\nLatency: {execution.get('latency_ms')} ms\nSources: {len(actual.get('sources', []))}\nAnswer available: {bool(actual.get('answer'))}\nError: {execution.get('error')}")
+        return 0
     if not args.validate_datasets and not args.run_one:
         parser.error("provide --validate-datasets or --run-one DATASET QUESTION_ID")
     datasets = discover_datasets(Path("data/evaluation/questions"))
