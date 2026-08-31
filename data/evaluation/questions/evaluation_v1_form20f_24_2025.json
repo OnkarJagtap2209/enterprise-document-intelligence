@@ -1,0 +1,268 @@
+{
+  "dataset_version": "evaluation_v1",
+  "dataset_name": "Infosys Form 20-F FY2025 Evaluation Set",
+  "source_document": {
+    "filename": "form20f-24-2025.pdf",
+    "report_type": "Annual Report on Form 20-F",
+    "fiscal_periods_covered": [
+      2025,
+      2024,
+      2023
+    ],
+    "financial_table_currency": "USD millions unless otherwise stated"
+  },
+  "notes": [
+    "Exactly 12 questions for this PDF, matching the evaluation-v1 size used for the FY2023 and corrected FY2024 sets.",
+    "Questions were selected after reviewing the supplied FY2025 Form 20-F content across financial statements, revenue disclosures, contractual obligations, employee benefits, dividends, capital allocation and acquisitions.",
+    "Questions intentionally cover direct facts, financial comparison, geography/table retrieval, contractual obligations, balance-sheet information, expense analysis, corporate actions, policy, acquisitions and semantic retrieval.",
+    "relevant_pages is intentionally empty because exact page/chunk provenance should be populated from the project's processed chunk artifact rather than guessed.",
+    "Do not fabricate chunk IDs. Map question IDs to the actual canonical chunk IDs after the PDF is ingested and indexed."
+  ],
+  "questions": [
+    {
+      "question_id": "q001",
+      "question": "What were Infosys' total revenues for fiscal 2025?",
+      "question_type": "direct_financial_fact",
+      "expected_answer": "$19,277 million.",
+      "expected_facts": [
+        "fiscal_2025_revenue_usd_million=19277"
+      ],
+      "retrieval_targets": [
+        "revenues",
+        "fiscal 2025",
+        "19,277"
+      ],
+      "document": "form20f-24-2025.pdf",
+      "relevant_pages": [],
+      "evidence": "The Consolidated Statements of Comprehensive Income report revenues of $19,277 million for the year ended March 31, 2025."
+    },
+    {
+      "question_id": "q002",
+      "question": "How much did Infosys' revenues increase from fiscal 2024 to fiscal 2025, and what was the percentage growth?",
+      "question_type": "financial_comparison",
+      "expected_answer": "Revenue increased by $715 million, or approximately 3.8%, from $18,562 million in fiscal 2024 to $19,277 million in fiscal 2025.",
+      "expected_facts": [
+        "fiscal_2024_revenue_usd_million=18562",
+        "fiscal_2025_revenue_usd_million=19277",
+        "change_usd_million=715",
+        "percentage_change=3.8%"
+      ],
+      "retrieval_targets": [
+        "revenue",
+        "fiscal 2025",
+        "fiscal 2024",
+        "19,277",
+        "18,562",
+        "715",
+        "3.8%"
+      ],
+      "document": "form20f-24-2025.pdf",
+      "relevant_pages": [],
+      "evidence": "The report gives fiscal 2025 revenue of $19,277 million and fiscal 2024 revenue of $18,562 million; the increase is $715 million, approximately 3.8%."
+    },
+    {
+      "question_id": "q003",
+      "question": "Which geography accounted for the largest amount of Infosys' revenue in fiscal 2025, and how much revenue did it generate?",
+      "question_type": "geography_analysis",
+      "expected_answer": "North America, with $11,166 million of revenue.",
+      "expected_facts": [
+        "largest_geography=North America",
+        "revenue_usd_million=11166"
+      ],
+      "retrieval_targets": [
+        "revenues by geography",
+        "North America",
+        "11,166",
+        "fiscal 2025"
+      ],
+      "document": "form20f-24-2025.pdf",
+      "relevant_pages": [],
+      "evidence": "The revenue-disaggregation table reports North America at $11,166 million in fiscal 2025, higher than Europe, India and the Rest of the world."
+    },
+    {
+      "question_id": "q004",
+      "question": "What percentage of Infosys' fiscal 2025 revenue came from fixed-price contracts?",
+      "question_type": "contract_type_metric",
+      "expected_answer": "Approximately 54%.",
+      "expected_facts": [
+        "fixed_price_contract_revenue_percentage=54%"
+      ],
+      "retrieval_targets": [
+        "fixed price contracts",
+        "54%",
+        "fiscal 2025"
+      ],
+      "document": "form20f-24-2025.pdf",
+      "relevant_pages": [],
+      "evidence": "The revenue disclosure states that the percentage of revenue from fixed-price contracts was approximately 54% for fiscal 2025."
+    },
+    {
+      "question_id": "q005",
+      "question": "What was the aggregate value of Infosys' completely or partially unsatisfied performance obligations as of March 31, 2025, and what percentage was expected to be recognized within one year?",
+      "question_type": "contractual_obligation",
+      "expected_answer": "$12,258 million, of which around 50% was expected to be recognized as revenue within the next one year.",
+      "expected_facts": [
+        "remaining_performance_obligations_usd_million=12258",
+        "recognized_within_one_year_percentage=50%"
+      ],
+      "retrieval_targets": [
+        "remaining performance obligations",
+        "12,258",
+        "50%",
+        "March 31, 2025"
+      ],
+      "document": "form20f-24-2025.pdf",
+      "relevant_pages": [],
+      "evidence": "The report states that aggregate completely or partially unsatisfied performance obligations were $12,258 million at March 31, 2025, with around 50% expected to be recognized within one year."
+    },
+    {
+      "question_id": "q006",
+      "question": "What were Infosys' unbilled financial and non-financial assets as of March 31, 2025, and what was their total?",
+      "question_type": "balance_sheet_table",
+      "expected_answer": "Unbilled financial assets were $1,195 million and unbilled non-financial assets were $569 million, for a total of $1,764 million.",
+      "expected_facts": [
+        "unbilled_financial_asset_usd_million=1195",
+        "unbilled_non_financial_asset_usd_million=569",
+        "total_unbilled_revenue_usd_million=1764"
+      ],
+      "retrieval_targets": [
+        "unbilled revenue",
+        "1,195",
+        "569",
+        "1,764",
+        "March 31, 2025"
+      ],
+      "document": "form20f-24-2025.pdf",
+      "relevant_pages": [],
+      "evidence": "The unbilled-revenue table reports $1,195 million of unbilled financial assets and $569 million of unbilled non-financial assets, totaling $1,764 million."
+    },
+    {
+      "question_id": "q007",
+      "question": "What was Infosys' total employee benefit cost in fiscal 2025, and how was it split across cost of sales, selling and marketing, and administrative expenses?",
+      "question_type": "expense_analysis",
+      "expected_answer": "Total employee benefit cost was $10,165 million: $9,151 million in cost of sales, $677 million in selling and marketing expenses, and $337 million in administrative expenses.",
+      "expected_facts": [
+        "total_employee_benefit_cost_usd_million=10165",
+        "cost_of_sales_employee_benefit_usd_million=9151",
+        "selling_marketing_employee_benefit_usd_million=677",
+        "administrative_employee_benefit_usd_million=337"
+      ],
+      "retrieval_targets": [
+        "employee benefit costs",
+        "10,165",
+        "9,151",
+        "677",
+        "337"
+      ],
+      "document": "form20f-24-2025.pdf",
+      "relevant_pages": [],
+      "evidence": "The employee-benefit disclosures report total employee benefit costs of $10,165 million, allocated as $9,151 million to cost of sales, $677 million to selling and marketing, and $337 million to administrative expenses."
+    },
+    {
+      "question_id": "q008",
+      "question": "What interim, final, and special dividends per equity share were recognized for fiscal 2025?",
+      "question_type": "corporate_action",
+      "expected_answer": "The interim dividend was ₹21.00 per equity share, the final dividend was ₹20.00 per equity share, and the special dividend was ₹8.00 per equity share.",
+      "expected_facts": [
+        "interim_dividend_inr=21.00",
+        "final_dividend_inr=20.00",
+        "special_dividend_inr=8.00"
+      ],
+      "retrieval_targets": [
+        "dividend per equity share",
+        "fiscal 2025",
+        "21.00",
+        "20.00",
+        "8.00"
+      ],
+      "document": "form20f-24-2025.pdf",
+      "relevant_pages": [],
+      "evidence": "The dividend table lists ₹21.00 interim, ₹20.00 final and ₹8.00 special dividend per equity share for fiscal 2025."
+    },
+    {
+      "question_id": "q009",
+      "question": "What was Infosys' capital allocation policy effective fiscal 2025 regarding cumulative free cash flow?",
+      "question_type": "policy_fact",
+      "expected_answer": "Infosys expected to return approximately 85% of cumulative free cash flow over a five-year period through a combination of semi-annual dividends and/or share buybacks/special dividends, subject to applicable laws and requisite approvals.",
+      "expected_facts": [
+        "free_cash_flow_payout_target=85%",
+        "policy_period=5 years",
+        "payout_methods=semi_annual_dividends_and_or_buybacks_special_dividends"
+      ],
+      "retrieval_targets": [
+        "capital allocation policy",
+        "85%",
+        "5-year period",
+        "free cash flow",
+        "semi-annual dividends",
+        "share buyback"
+      ],
+      "document": "form20f-24-2025.pdf",
+      "relevant_pages": [],
+      "evidence": "The report states that effective fiscal 2025 the Company expects to return approximately 85% of free cash flow cumulatively over a five-year period through semi-annual dividends and/or share buyback/special dividends."
+    },
+    {
+      "question_id": "q010",
+      "question": "What acquisitions did Infosys announce on April 17, 2025, and what was the maximum consideration for each including earn-outs?",
+      "question_type": "acquisition_fact",
+      "expected_answer": "Infosys agreed to acquire 100% of The Missing Link, an Australian cybersecurity services provider, for up to AUD 98 million (approximately $62 million), and 100% of MRE Consulting Ltd, a U.S.-headquartered energy consulting company, for up to $36 million, excluding management incentives and retention bonuses.",
+      "expected_facts": [
+        "target_1=The Missing Link",
+        "target_1_ownership=100%",
+        "target_1_max_consideration_aud_million=98",
+        "target_1_approx_usd_million=62",
+        "target_2=MRE Consulting Ltd",
+        "target_2_ownership=100%",
+        "target_2_max_consideration_usd_million=36"
+      ],
+      "retrieval_targets": [
+        "April 17, 2025",
+        "The Missing Link",
+        "AUD 98 million",
+        "$62 million",
+        "MRE Consulting Ltd",
+        "$36 million"
+      ],
+      "document": "form20f-24-2025.pdf",
+      "relevant_pages": [],
+      "evidence": "The report describes two April 17, 2025 definitive agreements: acquisition of The Missing Link for up to AUD 98 million and acquisition of MRE Consulting Ltd for up to $36 million, with both transactions completed on April 30, 2025."
+    },
+    {
+      "question_id": "q011",
+      "question": "What were Infosys' material lease liabilities as of March 31, 2025 on an undiscounted basis?",
+      "question_type": "contractual_commitment",
+      "expected_answer": "$1,050 million.",
+      "expected_facts": [
+        "undiscounted_lease_liabilities_usd_million=1050"
+      ],
+      "retrieval_targets": [
+        "lease liabilities",
+        "undiscounted basis",
+        "1,050",
+        "March 31, 2025"
+      ],
+      "document": "form20f-24-2025.pdf",
+      "relevant_pages": [],
+      "evidence": "The material contractual commitments disclosure states that total lease liabilities on an undiscounted basis were $1,050 million as of March 31, 2025."
+    },
+    {
+      "question_id": "q012",
+      "question": "What was Infosys' net profit in fiscal 2025, and what percentage of revenue did it represent?",
+      "question_type": "financial_metrics",
+      "expected_answer": "Net profit was $3,162 million, representing 16.4% of revenues.",
+      "expected_facts": [
+        "net_profit_usd_million=3162",
+        "net_profit_margin=16.4%"
+      ],
+      "retrieval_targets": [
+        "net profit",
+        "3,162",
+        "16.4%",
+        "fiscal 2025"
+      ],
+      "document": "form20f-24-2025.pdf",
+      "relevant_pages": [],
+      "evidence": "The report's net-profit disclosure gives fiscal 2025 net profit of $3,162 million and net profit as a percentage of revenues of 16.4%."
+    }
+  ]
+}

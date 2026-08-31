@@ -1,0 +1,268 @@
+{
+  "dataset_version": "evaluation_v1",
+  "dataset_name": "Infosys Form 20-F FY2026 Evaluation Set",
+  "source_document": {
+    "filename": "form20f-25-26.pdf",
+    "report_type": "Annual Report on Form 20-F",
+    "fiscal_periods_covered": [
+      2026,
+      2025,
+      2024
+    ],
+    "financial_table_currency": "USD millions unless otherwise stated"
+  },
+  "notes": [
+    "Exactly 12 evaluation questions for the FY2026 Form 20-F PDF.",
+    "Questions were selected after reviewing the supplied FY2026 Form 20-F across consolidated financial statements, revenue disclosures, geography and business-segment tables, employee utilization, cost structure, export revenue, capital allocation, buyback activity, dividends and contractual commitments.",
+    "Questions intentionally cover direct facts, financial comparisons, table retrieval, geography/segment analysis, operational metrics, expense analysis, policy, corporate actions and contractual commitments.",
+    "relevant_pages is intentionally empty because exact page/chunk provenance should be populated from the project's processed chunk artifact rather than guessed.",
+    "Do not fabricate chunk IDs. Map question IDs to the actual canonical chunk IDs after the PDF is ingested and indexed."
+  ],
+  "questions": [
+    {
+      "question_id": "q001",
+      "question": "What were Infosys' total revenues for fiscal 2026?",
+      "question_type": "direct_financial_fact",
+      "expected_answer": "$20,158 million.",
+      "expected_facts": [
+        "fiscal_2026_revenue_usd_million=20158"
+      ],
+      "retrieval_targets": [
+        "revenues",
+        "fiscal 2026",
+        "20,158"
+      ],
+      "document": "form20f-25-26.pdf",
+      "relevant_pages": [],
+      "evidence": "The Consolidated Statements of Comprehensive Income report revenues of $20,158 million for fiscal 2026."
+    },
+    {
+      "question_id": "q002",
+      "question": "How much did Infosys' revenue increase from fiscal 2025 to fiscal 2026, and what was the percentage growth?",
+      "question_type": "financial_comparison",
+      "expected_answer": "Revenue increased by $881 million, or 4.6%, from $19,277 million in fiscal 2025 to $20,158 million in fiscal 2026.",
+      "expected_facts": [
+        "fiscal_2025_revenue_usd_million=19277",
+        "fiscal_2026_revenue_usd_million=20158",
+        "change_usd_million=881",
+        "percentage_change=4.6%"
+      ],
+      "retrieval_targets": [
+        "revenue",
+        "fiscal 2026",
+        "fiscal 2025",
+        "20,158",
+        "19,277",
+        "881",
+        "4.6%"
+      ],
+      "document": "form20f-25-26.pdf",
+      "relevant_pages": [],
+      "evidence": "The report states fiscal 2026 revenue of $20,158 million versus $19,277 million in fiscal 2025, an increase of $881 million or 4.6%."
+    },
+    {
+      "question_id": "q003",
+      "question": "What were Infosys' software services revenue and products and platforms revenue in fiscal 2026?",
+      "question_type": "table_fact",
+      "expected_answer": "Software services revenue was $19,196 million and products and platforms revenue was $962 million.",
+      "expected_facts": [
+        "software_services_revenue_usd_million=19196",
+        "products_platforms_revenue_usd_million=962"
+      ],
+      "retrieval_targets": [
+        "software services",
+        "products and platforms",
+        "19,196",
+        "962",
+        "fiscal 2026"
+      ],
+      "document": "form20f-25-26.pdf",
+      "relevant_pages": [],
+      "evidence": "The revenue table reports $19,196 million from software services and $962 million from products and platforms in fiscal 2026."
+    },
+    {
+      "question_id": "q004",
+      "question": "Which geography generated the largest amount of Infosys' revenue in fiscal 2026, and how much revenue did it generate?",
+      "question_type": "geography_analysis",
+      "expected_answer": "North America, with $11,304 million of revenue.",
+      "expected_facts": [
+        "largest_geography=North America",
+        "revenue_usd_million=11304"
+      ],
+      "retrieval_targets": [
+        "revenues by geography",
+        "North America",
+        "11,304",
+        "fiscal 2026"
+      ],
+      "document": "form20f-25-26.pdf",
+      "relevant_pages": [],
+      "evidence": "The geography table reports North America at $11,304 million in fiscal 2026, higher than Europe at $6,480 million, Rest of the world at $1,798 million and India at $576 million."
+    },
+    {
+      "question_id": "q005",
+      "question": "Which business segment contributed the largest percentage of Infosys' revenues in fiscal 2026, and what was its share?",
+      "question_type": "segment_analysis",
+      "expected_answer": "Financial Services, at 27.9% of revenues.",
+      "expected_facts": [
+        "largest_segment=Financial Services",
+        "percentage=27.9%"
+      ],
+      "retrieval_targets": [
+        "business segments",
+        "Financial Services",
+        "27.9%",
+        "fiscal 2026"
+      ],
+      "document": "form20f-25-26.pdf",
+      "relevant_pages": [],
+      "evidence": "The fiscal 2026 business-segment table lists Financial Services at 27.9%, the highest segment share."
+    },
+    {
+      "question_id": "q006",
+      "question": "What were Infosys' utilization rates for billable IT services professionals in fiscal 2026, including and excluding trainees?",
+      "question_type": "operational_metric",
+      "expected_answer": "81.1% including trainees and 84.4% excluding trainees.",
+      "expected_facts": [
+        "utilization_including_trainees=81.1%",
+        "utilization_excluding_trainees=84.4%"
+      ],
+      "retrieval_targets": [
+        "utilization rates",
+        "billable IT services professionals",
+        "81.1%",
+        "84.4%"
+      ],
+      "document": "form20f-25-26.pdf",
+      "relevant_pages": [],
+      "evidence": "The utilization table reports 81.1% including trainees and 84.4% excluding trainees for fiscal 2026."
+    },
+    {
+      "question_id": "q007",
+      "question": "What percentage of Infosys' fiscal 2026 revenue came from fixed-price contracts, and how did this compare with fiscal 2025?",
+      "question_type": "contract_type_metric",
+      "expected_answer": "Approximately 54% in fiscal 2026, the same as fiscal 2025.",
+      "expected_facts": [
+        "fiscal_2026_fixed_price_revenue_percentage=54%",
+        "fiscal_2025_fixed_price_revenue_percentage=54%"
+      ],
+      "retrieval_targets": [
+        "fixed price contracts",
+        "54%",
+        "fiscal 2026",
+        "fiscal 2025"
+      ],
+      "document": "form20f-25-26.pdf",
+      "relevant_pages": [],
+      "evidence": "The report states that revenue from fixed-price contracts was 54% in both fiscal 2026 and fiscal 2025."
+    },
+    {
+      "question_id": "q008",
+      "question": "What were Infosys' cost of sales and employee benefit costs in fiscal 2026?",
+      "question_type": "expense_analysis",
+      "expected_answer": "Cost of sales was $14,079 million and employee benefit costs were $10,882 million.",
+      "expected_facts": [
+        "cost_of_sales_usd_million=14079",
+        "employee_benefit_costs_usd_million=10882"
+      ],
+      "retrieval_targets": [
+        "cost of sales",
+        "employee benefit costs",
+        "14,079",
+        "10,882",
+        "fiscal 2026"
+      ],
+      "document": "form20f-25-26.pdf",
+      "relevant_pages": [],
+      "evidence": "The report gives fiscal 2026 cost of sales of $14,079 million and employee benefit costs of $10,882 million."
+    },
+    {
+      "question_id": "q009",
+      "question": "What were Infosys' net profit and profit before income taxes in fiscal 2026?",
+      "question_type": "financial_metrics",
+      "expected_answer": "Net profit was $3,316 million and profit before income taxes was $4,506 million.",
+      "expected_facts": [
+        "net_profit_usd_million=3316",
+        "profit_before_income_taxes_usd_million=4506"
+      ],
+      "retrieval_targets": [
+        "net profit",
+        "profit before income taxes",
+        "3,316",
+        "4,506",
+        "fiscal 2026"
+      ],
+      "document": "form20f-25-26.pdf",
+      "relevant_pages": [],
+      "evidence": "The Consolidated Statements of Comprehensive Income report profit before income taxes of $4,506 million and net profit of $3,316 million for fiscal 2026."
+    },
+    {
+      "question_id": "q010",
+      "question": "What was Infosys' capital allocation policy regarding cumulative free cash flow, effective from fiscal 2025?",
+      "question_type": "policy_fact",
+      "expected_answer": "Infosys expects to return approximately 85% of cumulative free cash flow over a five-year period through a combination of semi-annual dividends and/or share buybacks or special dividends, subject to applicable laws and requisite approvals.",
+      "expected_facts": [
+        "free_cash_flow_payout_target=85%",
+        "policy_period=5 years",
+        "payout_methods=semi_annual_dividends_and_or_share_buyback_special_dividends"
+      ],
+      "retrieval_targets": [
+        "capital allocation policy",
+        "85%",
+        "5-year period",
+        "free cash flow",
+        "share buyback"
+      ],
+      "document": "form20f-25-26.pdf",
+      "relevant_pages": [],
+      "evidence": "The report states that effective fiscal 2025 the Company expects to return approximately 85% of free cash flow cumulatively over five years through semi-annual dividends and/or share buyback/special dividends."
+    },
+    {
+      "question_id": "q011",
+      "question": "What were Infosys' contractual capital expenditure commitments and purchase obligations as of March 31, 2026?",
+      "question_type": "contractual_commitments",
+      "expected_answer": "Capital expenditure commitments were $141 million, while purchase obligations were $2,443 million; approximately 54% of the purchase obligations were expected to be completed within the next year.",
+      "expected_facts": [
+        "capital_expenditure_commitments_usd_million=141",
+        "purchase_obligations_usd_million=2443",
+        "purchase_obligations_within_one_year_percentage=54%"
+      ],
+      "retrieval_targets": [
+        "contractual commitments",
+        "capital expenditure",
+        "141 million",
+        "purchase obligations",
+        "2,443",
+        "54%",
+        "March 31, 2026"
+      ],
+      "document": "form20f-25-26.pdf",
+      "relevant_pages": [],
+      "evidence": "The contractual commitments disclosure states $141 million of capital expenditure commitments and $2,443 million of purchase obligations as of March 31, 2026, with approximately 54% of purchase obligations expected within one year."
+    },
+    {
+      "question_id": "q012",
+      "question": "What final dividend did Infosys' Board recommend for fiscal 2026, and what buyback did the Board approve during fiscal 2026?",
+      "question_type": "corporate_actions",
+      "expected_answer": "The Board recommended a final dividend of ₹25 per equity share for the year ended March 31, 2026. It also approved a buyback of equity shares for ₹18,000 crore, comprising 100,000,000 equity shares, approximately 2.41% of the paid-up equity share capital.",
+      "expected_facts": [
+        "recommended_final_dividend_inr=25",
+        "buyback_amount_inr_crore=18000",
+        "buyback_shares=100000000",
+        "buyback_percentage_paid_up_capital=2.41%"
+      ],
+      "retrieval_targets": [
+        "April 23, 2026",
+        "final dividend",
+        "₹25",
+        "buyback",
+        "₹18,000 crore",
+        "100,000,000",
+        "2.41%"
+      ],
+      "document": "form20f-25-26.pdf",
+      "relevant_pages": [],
+      "evidence": "The report states that on April 23, 2026 the Board recommended a ₹25 final dividend per equity share. It also describes the September 11, 2025 Board-approved ₹18,000 crore buyback of 100,000,000 equity shares, approximately 2.41% of paid-up equity share capital."
+    }
+  ]
+}

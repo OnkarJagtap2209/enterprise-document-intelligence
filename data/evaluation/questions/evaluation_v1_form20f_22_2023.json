@@ -1,0 +1,256 @@
+{
+  "dataset_version": "evaluation_v1",
+  "dataset_name": "Infosys Form 20-F FY2023 Evaluation Set",
+  "source_document": {
+    "filename": "form20f-22-2023.pdf",
+    "report_type": "Annual Report on Form 20-F",
+    "fiscal_periods_covered": [
+      2023,
+      2022,
+      2021
+    ],
+    "financial_table_currency": "USD millions unless otherwise stated"
+  },
+  "notes": [
+    "12 questions for this PDF.",
+    "Expected answers are grounded in the supplied PDF.",
+    "relevant_pages is intentionally empty because page/provenance should be populated from the project's actual processed chunk artifact rather than guessed.",
+    "Do not add fabricated chunk IDs. The separate relevance dataset should map question IDs to canonical chunk IDs after indexing."
+  ],
+  "questions": [
+    {
+      "question_id": "q001",
+      "question": "What were Infosys' total revenues for fiscal 2023?",
+      "question_type": "direct_financial_fact",
+      "expected_answer": "$18,212 million.",
+      "expected_facts": [
+        "revenues",
+        "fiscal 2023",
+        "18,212"
+      ],
+      "document": "form20f-22-2023.pdf",
+      "relevant_pages": [],
+      "evidence": "Ground truth is derived from the supplied PDF; verify the exact page/chunk provenance after the PDF is processed by the project.",
+      "retrieval_targets": [
+        "revenues",
+        "fiscal 2023",
+        "18,212"
+      ]
+    },
+    {
+      "question_id": "q002",
+      "question": "How much did Infosys' revenues increase from fiscal 2022 to fiscal 2023?",
+      "question_type": "financial_comparison",
+      "expected_answer": "Revenue increased by $1,901 million, or 11.7%, from $16,311 million to $18,212 million.",
+      "expected_facts": [
+        "revenue",
+        "fiscal 2022",
+        "fiscal 2023",
+        "11.7%"
+      ],
+      "document": "form20f-22-2023.pdf",
+      "relevant_pages": [],
+      "evidence": "Ground truth is derived from the supplied PDF; verify the exact page/chunk provenance after the PDF is processed by the project.",
+      "retrieval_targets": [
+        "revenue",
+        "fiscal 2022",
+        "fiscal 2023",
+        "11.7%"
+      ]
+    },
+    {
+      "question_id": "q003",
+      "question": "What percentage of Infosys' total revenue came from digital revenue in fiscal 2023?",
+      "question_type": "table_fact",
+      "expected_answer": "62.2%.",
+      "expected_facts": [
+        "digital revenue",
+        "62.2%"
+      ],
+      "document": "form20f-22-2023.pdf",
+      "relevant_pages": [],
+      "evidence": "Ground truth is derived from the supplied PDF; verify the exact page/chunk provenance after the PDF is processed by the project.",
+      "retrieval_targets": [
+        "digital revenue",
+        "62.2%"
+      ]
+    },
+    {
+      "question_id": "q004",
+      "question": "Which business segment contributed the largest percentage of Infosys' revenues in fiscal 2023?",
+      "question_type": "segment_analysis",
+      "expected_answer": "Financial Services, at 29.8% of revenues.",
+      "expected_facts": [
+        "business segments",
+        "Financial Services",
+        "29.8%"
+      ],
+      "document": "form20f-22-2023.pdf",
+      "relevant_pages": [],
+      "evidence": "Ground truth is derived from the supplied PDF; verify the exact page/chunk provenance after the PDF is processed by the project.",
+      "retrieval_targets": [
+        "business segments",
+        "Financial Services",
+        "29.8%"
+      ]
+    },
+    {
+      "question_id": "q005",
+      "question": "Which geography accounted for the largest percentage of Infosys' revenue in fiscal 2023?",
+      "question_type": "geography_analysis",
+      "expected_answer": "North America, at 61.8%.",
+      "expected_facts": [
+        "revenues by geography",
+        "North America",
+        "61.8%"
+      ],
+      "document": "form20f-22-2023.pdf",
+      "relevant_pages": [],
+      "evidence": "Ground truth is derived from the supplied PDF; verify the exact page/chunk provenance after the PDF is processed by the project.",
+      "retrieval_targets": [
+        "revenues by geography",
+        "North America",
+        "61.8%"
+      ]
+    },
+    {
+      "question_id": "q006",
+      "question": "What were Infosys' utilization rates for billable IT services professionals in fiscal 2023, including and excluding trainees?",
+      "question_type": "operational_metric",
+      "expected_answer": "77.1% including trainees and 82.5% excluding trainees.",
+      "expected_facts": [
+        "utilization rates",
+        "77.1%",
+        "82.5%"
+      ],
+      "document": "form20f-22-2023.pdf",
+      "relevant_pages": [],
+      "evidence": "Ground truth is derived from the supplied PDF; verify the exact page/chunk provenance after the PDF is processed by the project.",
+      "retrieval_targets": [
+        "utilization rates",
+        "77.1%",
+        "82.5%"
+      ]
+    },
+    {
+      "question_id": "q007",
+      "question": "How much revenue did Infosys generate from exports in fiscal 2023, and what percentage of total revenue did this represent?",
+      "question_type": "financial_fact",
+      "expected_answer": "$17,734 million, representing 97.4% of total revenues.",
+      "expected_facts": [
+        "export revenue",
+        "17,734",
+        "97.4%"
+      ],
+      "document": "form20f-22-2023.pdf",
+      "relevant_pages": [],
+      "evidence": "Ground truth is derived from the supplied PDF; verify the exact page/chunk provenance after the PDF is processed by the project.",
+      "retrieval_targets": [
+        "export revenue",
+        "17,734",
+        "97.4%"
+      ]
+    },
+    {
+      "question_id": "q008",
+      "question": "What was Infosys' operating profit in fiscal 2023 and how did it compare with fiscal 2022?",
+      "question_type": "financial_comparison",
+      "expected_answer": "Operating profit was $3,825 million in fiscal 2023 versus $3,755 million in fiscal 2022, an increase of $70 million; operating margin was 21.0% versus 23.0%.",
+      "expected_facts": [
+        "operating profit",
+        "3,825",
+        "3,755",
+        "21.0%",
+        "23.0%"
+      ],
+      "document": "form20f-22-2023.pdf",
+      "relevant_pages": [],
+      "evidence": "Ground truth is derived from the supplied PDF; verify the exact page/chunk provenance after the PDF is processed by the project.",
+      "retrieval_targets": [
+        "operating profit",
+        "3,825",
+        "3,755",
+        "21.0%",
+        "23.0%"
+      ]
+    },
+    {
+      "question_id": "q009",
+      "question": "What were Infosys' interim and final dividends per equity share for fiscal 2023?",
+      "question_type": "table_fact",
+      "expected_answer": "Interim dividend: ₹16.50 per share; final dividend: ₹17.50 per share as recommended for fiscal 2023.",
+      "expected_facts": [
+        "dividend per equity share",
+        "16.50",
+        "17.50"
+      ],
+      "document": "form20f-22-2023.pdf",
+      "relevant_pages": [],
+      "evidence": "Ground truth is derived from the supplied PDF; verify the exact page/chunk provenance after the PDF is processed by the project.",
+      "retrieval_targets": [
+        "dividend per equity share",
+        "16.50",
+        "17.50"
+      ]
+    },
+    {
+      "question_id": "q010",
+      "question": "How many equity shares did Infosys purchase and extinguish during the February 2023 buyback, and what was the volume-weighted average buyback price?",
+      "question_type": "corporate_action",
+      "expected_answer": "60,426,348 equity shares at a volume-weighted average buyback price of ₹1,539.06 per share.",
+      "expected_facts": [
+        "buyback",
+        "60,426,348",
+        "1,539.06"
+      ],
+      "document": "form20f-22-2023.pdf",
+      "relevant_pages": [],
+      "evidence": "Ground truth is derived from the supplied PDF; verify the exact page/chunk provenance after the PDF is processed by the project.",
+      "retrieval_targets": [
+        "buyback",
+        "60,426,348",
+        "1,539.06"
+      ]
+    },
+    {
+      "question_id": "q011",
+      "question": "What were the percentage changes in cost of sales and administrative expenses from fiscal 2022 to fiscal 2023?",
+      "question_type": "financial_analysis",
+      "expected_answer": "Cost of sales increased by 15.6%; administrative expenses decreased by 0.4% as a percentage of revenue.",
+      "expected_facts": [
+        "cost of sales",
+        "15.6%",
+        "administrative expenses",
+        "0.4%"
+      ],
+      "document": "form20f-22-2023.pdf",
+      "relevant_pages": [],
+      "evidence": "Ground truth is derived from the supplied PDF; verify the exact page/chunk provenance after the PDF is processed by the project.",
+      "retrieval_targets": [
+        "cost of sales",
+        "15.6%",
+        "administrative expenses",
+        "0.4%"
+      ]
+    },
+    {
+      "question_id": "q012",
+      "question": "What percentage of total revenues came from products and platforms in fiscal 2023 and fiscal 2022?",
+      "question_type": "semantic_variation",
+      "expected_answer": "6.3% in fiscal 2023 and 6.7% in fiscal 2022.",
+      "expected_facts": [
+        "products and platforms",
+        "6.3%",
+        "6.7%"
+      ],
+      "document": "form20f-22-2023.pdf",
+      "relevant_pages": [],
+      "evidence": "Ground truth is derived from the supplied PDF; verify the exact page/chunk provenance after the PDF is processed by the project.",
+      "retrieval_targets": [
+        "products and platforms",
+        "6.3%",
+        "6.7%"
+      ]
+    }
+  ]
+}

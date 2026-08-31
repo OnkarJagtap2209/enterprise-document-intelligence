@@ -1,0 +1,35 @@
+{
+  "dataset_name": "Infosys Q1 FY2027 Evaluation Set",
+  "source_document": "q1-26-2027(1).pdf",
+  "question_id": "q001",
+  "question": "What were Infosys' consolidated revenues for the quarter ended June 30, 2026, and how did they compare with the quarter ended June 30, 2025?",
+  "expected": {
+    "answer": "Revenue was ₹48,211 crore in Q1 FY2027, compared with ₹42,279 crore in Q1 FY2026, representing 14.0% growth.",
+    "facts": [
+      "q1_fy2027_revenue_inr_crore=48211",
+      "q1_fy2026_revenue_inr_crore=42279",
+      "growth=14.0%"
+    ],
+    "retrieval_targets": [
+      "Revenues",
+      "48,211",
+      "42,279",
+      "14.0%",
+      "June 30, 2026"
+    ],
+    "relevant_pages": [
+      3
+    ],
+    "evidence": "Page 3 Statement of comprehensive income reports revenues of ₹48,211 crore for the three months ended June 30, 2026 versus ₹42,279 crore for the comparable 2025 quarter, with 14.0% growth."
+  },
+  "actual": {
+    "answer": "I am sorry, but the provided evidence does not contain information regarding Infosys' consolidated revenues for the quarter ended June 30, 2026, or how they compare to the quarter ended June 30, 2025.",
+    "sources": []
+  },
+  "execution": {
+    "status": "success",
+    "latency_ms": 194235.44089996722,
+    "request_id": "fb46d52b-2870-4ecb-9ecd-5a7c3271f16c",
+    "error": null
+  }
+}

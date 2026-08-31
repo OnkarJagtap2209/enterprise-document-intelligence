@@ -1,0 +1,317 @@
+{
+  "dataset_version": "evaluation_v1",
+  "dataset_name": "Infosys Q1 FY2027 Evaluation Set",
+  "source_document": {
+    "filename": "q1-26-2027(1).pdf",
+    "report_type": "Quarterly Results / Additional Information",
+    "reporting_period": "Three months ended June 30, 2026 (Q1 FY2027)",
+    "comparison_period": "Three months ended June 30, 2025 (Q1 FY2026)"
+  },
+  "notes": [
+    "Exactly 12 evaluation questions for the complete 6-page Q1 FY2027 Infosys PDF.",
+    "The questions were selected across the full document, including ratio analysis, consolidated income statement, balance sheet data, shareholder information, market trading activity, investor complaints, legal proceedings and ADS information.",
+    "Questions intentionally cover direct facts, year-over-year comparisons, arithmetic comparisons, margins, operational metrics, balance-sheet movement and shareholder/market data.",
+    "relevant_pages uses the PDF page numbers where the source evidence appears.",
+    "Expected answers are grounded in the supplied PDF and do not use outside information."
+  ],
+  "questions": [
+    {
+      "question_id": "q001",
+      "question": "What were Infosys' consolidated revenues for the quarter ended June 30, 2026, and how did they compare with the quarter ended June 30, 2025?",
+      "question_type": "financial_comparison",
+      "expected_answer": "Revenue was ₹48,211 crore in Q1 FY2027, compared with ₹42,279 crore in Q1 FY2026, representing 14.0% growth.",
+      "expected_facts": [
+        "q1_fy2027_revenue_inr_crore=48211",
+        "q1_fy2026_revenue_inr_crore=42279",
+        "growth=14.0%"
+      ],
+      "retrieval_targets": [
+        "Revenues",
+        "48,211",
+        "42,279",
+        "14.0%",
+        "June 30, 2026"
+      ],
+      "document": "q1-26-2027(1).pdf",
+      "relevant_pages": [
+        3
+      ],
+      "evidence": "Page 3 Statement of comprehensive income reports revenues of ₹48,211 crore for the three months ended June 30, 2026 versus ₹42,279 crore for the comparable 2025 quarter, with 14.0% growth."
+    },
+    {
+      "question_id": "q002",
+      "question": "What were Infosys' operating profit and net profit after non-controlling interest for Q1 FY2027, and what were their year-over-year growth rates?",
+      "question_type": "profitability_metrics",
+      "expected_answer": "Operating profit was ₹10,163 crore, up 15.4% year over year. Net profit after non-controlling interest was ₹7,769 crore, up 12.2%.",
+      "expected_facts": [
+        "operating_profit_inr_crore=10163",
+        "operating_profit_growth=15.4%",
+        "net_profit_after_nci_inr_crore=7769",
+        "net_profit_after_nci_growth=12.2%"
+      ],
+      "retrieval_targets": [
+        "Operating profit",
+        "Net profit after non-controlling interest",
+        "10,163",
+        "7,769",
+        "15.4%",
+        "12.2%"
+      ],
+      "document": "q1-26-2027(1).pdf",
+      "relevant_pages": [
+        3
+      ],
+      "evidence": "Page 3 reports operating profit of ₹10,163 crore with 15.4% growth and net profit after non-controlling interest of ₹7,769 crore with 12.2% growth."
+    },
+    {
+      "question_id": "q003",
+      "question": "How did Infosys' cost of sales and gross profit change in Q1 FY2027 compared with Q1 FY2026?",
+      "question_type": "expense_and_margin_analysis",
+      "expected_answer": "Cost of sales increased from ₹29,224 crore to ₹33,033 crore, a 13.0% increase. Gross profit increased from ₹13,055 crore to ₹15,178 crore, a 16.3% increase.",
+      "expected_facts": [
+        "q1_fy2026_cost_of_sales_inr_crore=29224",
+        "q1_fy2027_cost_of_sales_inr_crore=33033",
+        "cost_of_sales_growth=13.0%",
+        "q1_fy2026_gross_profit_inr_crore=13055",
+        "q1_fy2027_gross_profit_inr_crore=15178",
+        "gross_profit_growth=16.3%"
+      ],
+      "retrieval_targets": [
+        "Cost of Sales",
+        "Gross profit",
+        "33,033",
+        "29,224",
+        "15,178",
+        "13,055",
+        "13.0%",
+        "16.3%"
+      ],
+      "document": "q1-26-2027(1).pdf",
+      "relevant_pages": [
+        3
+      ],
+      "evidence": "Page 3 gives the Q1 FY2027 and Q1 FY2026 cost of sales and gross profit figures and their reported growth rates."
+    },
+    {
+      "question_id": "q004",
+      "question": "Which operating expense grew faster in Q1 FY2027: selling and marketing expenses or administrative expenses, and what were their respective growth rates?",
+      "question_type": "comparative_expense_analysis",
+      "expected_answer": "Administrative expenses grew faster. Selling and marketing expenses increased 16.3%, while administrative expenses increased 19.7%.",
+      "expected_facts": [
+        "selling_marketing_growth=16.3%",
+        "administrative_expense_growth=19.7%",
+        "faster_growth=administrative_expenses"
+      ],
+      "retrieval_targets": [
+        "Selling and marketing expenses",
+        "Administrative expenses",
+        "16.3%",
+        "19.7%"
+      ],
+      "document": "q1-26-2027(1).pdf",
+      "relevant_pages": [
+        3
+      ],
+      "evidence": "Page 3 reports 16.3% growth in selling and marketing expenses and 19.7% growth in administrative expenses."
+    },
+    {
+      "question_id": "q005",
+      "question": "What were Infosys' basic and diluted EPS in Q1 FY2027, and what was the year-over-year growth for each?",
+      "question_type": "per_share_metric",
+      "expected_answer": "Basic EPS was ₹19.19 and diluted EPS was ₹19.17. Both increased 14.9% year over year.",
+      "expected_facts": [
+        "basic_eps_inr=19.19",
+        "basic_eps_growth=14.9%",
+        "diluted_eps_inr=19.17",
+        "diluted_eps_growth=14.9%"
+      ],
+      "retrieval_targets": [
+        "Basic EPS",
+        "Diluted EPS",
+        "19.19",
+        "19.17",
+        "14.9%"
+      ],
+      "document": "q1-26-2027(1).pdf",
+      "relevant_pages": [
+        3
+      ],
+      "evidence": "Page 3 reports basic EPS of ₹19.19 and diluted EPS of ₹19.17 for Q1 FY2027, each showing 14.9% growth."
+    },
+    {
+      "question_id": "q006",
+      "question": "What were Infosys' total assets, total liabilities and total equity as of June 30, 2026?",
+      "question_type": "balance_sheet_fact",
+      "expected_answer": "Total assets were ₹1,54,858 crore, total liabilities were ₹63,302 crore, and total equity was ₹91,556 crore.",
+      "expected_facts": [
+        "total_assets_inr_crore=154858",
+        "total_liabilities_inr_crore=63302",
+        "total_equity_inr_crore=91556"
+      ],
+      "retrieval_targets": [
+        "Total assets",
+        "Total liabilities",
+        "Total equity",
+        "1,54,858",
+        "63,302",
+        "91,556",
+        "June 30, 2026"
+      ],
+      "document": "q1-26-2027(1).pdf",
+      "relevant_pages": [
+        3
+      ],
+      "evidence": "Page 3 balance sheet data as of June 30, 2026 reports total assets of ₹1,54,858 crore, total liabilities of ₹63,302 crore and total equity of ₹91,556 crore."
+    },
+    {
+      "question_id": "q007",
+      "question": "By how much did Infosys' trade receivables decrease between March 31, 2026 and June 30, 2026?",
+      "question_type": "balance_sheet_comparison",
+      "expected_answer": "Trade receivables decreased by ₹1,453 crore, from ₹35,234 crore on March 31, 2026 to ₹33,781 crore on June 30, 2026.",
+      "expected_facts": [
+        "march_31_2026_trade_receivables_inr_crore=35234",
+        "june_30_2026_trade_receivables_inr_crore=33781",
+        "decrease_inr_crore=1453"
+      ],
+      "retrieval_targets": [
+        "Trade receivables",
+        "35,234",
+        "33,781",
+        "March 31, 2026",
+        "June 30, 2026"
+      ],
+      "document": "q1-26-2027(1).pdf",
+      "relevant_pages": [
+        3
+      ],
+      "evidence": "Page 3 shows trade receivables of ₹35,234 crore as of March 31, 2026 and ₹33,781 crore as of June 30, 2026."
+    },
+    {
+      "question_id": "q008",
+      "question": "What were Infosys' export revenue-to-revenue ratios in Q1 FY2027 and Q1 FY2026, and what was the change?",
+      "question_type": "ratio_comparison",
+      "expected_answer": "Export revenue was 97.5% of revenue in Q1 FY2027 versus 97.1% in Q1 FY2026, an increase of 0.4 percentage points.",
+      "expected_facts": [
+        "q1_fy2027_export_revenue_ratio=97.5%",
+        "q1_fy2026_export_revenue_ratio=97.1%",
+        "change_percentage_points=0.4"
+      ],
+      "retrieval_targets": [
+        "Export revenue / revenue",
+        "97.5%",
+        "97.1%",
+        "Ratio Analysis"
+      ],
+      "document": "q1-26-2027(1).pdf",
+      "relevant_pages": [
+        1
+      ],
+      "evidence": "Page 1 Ratio Analysis reports export revenue/revenue of 97.5% for the three months ended June 30, 2026 and 97.1% for the corresponding 2025 quarter."
+    },
+    {
+      "question_id": "q009",
+      "question": "How did Infosys' operating profit margin and profit-after-tax margin change in Q1 FY2027 compared with Q1 FY2026?",
+      "question_type": "margin_analysis",
+      "expected_answer": "Operating profit/revenue increased from 20.8% to 21.1%, while profit after tax/revenue decreased from 16.4% to 16.1%.",
+      "expected_facts": [
+        "q1_fy2026_operating_margin=20.8%",
+        "q1_fy2027_operating_margin=21.1%",
+        "operating_margin_change=+0.3_percentage_points",
+        "q1_fy2026_pat_margin=16.4%",
+        "q1_fy2027_pat_margin=16.1%",
+        "pat_margin_change=-0.3_percentage_points"
+      ],
+      "retrieval_targets": [
+        "Operating profit / revenue",
+        "Profit after tax (PAT) / revenue",
+        "21.1%",
+        "20.8%",
+        "16.1%",
+        "16.4%"
+      ],
+      "document": "q1-26-2027(1).pdf",
+      "relevant_pages": [
+        1
+      ],
+      "evidence": "Page 1 Ratio Analysis reports operating profit/revenue of 21.1% versus 20.8% and PAT/revenue of 16.1% versus 16.4% for Q1 FY2027 versus Q1 FY2026."
+    },
+    {
+      "question_id": "q010",
+      "question": "What were Infosys' return on equity, day's sales outstanding, and operating cash flow-to-revenue ratio for Q1 FY2027?",
+      "question_type": "operational_and_return_metrics",
+      "expected_answer": "Return on equity was 32.1%, day's sales outstanding was 63 days, and operating cash flows/revenue was 20.4%.",
+      "expected_facts": [
+        "roe=32.1%",
+        "days_sales_outstanding=63",
+        "operating_cash_flows_revenue=20.4%"
+      ],
+      "retrieval_targets": [
+        "Return on equity",
+        "Day's sales outstanding",
+        "Operating cash flows / revenue",
+        "32.1%",
+        "63",
+        "20.4%"
+      ],
+      "document": "q1-26-2027(1).pdf",
+      "relevant_pages": [
+        1
+      ],
+      "evidence": "Page 1 Ratio Analysis reports ROE of 32.1%, DSO of 63 days and operating cash flows/revenue of 20.4% for the quarter ended June 30, 2026."
+    },
+    {
+      "question_id": "q011",
+      "question": "What was the total volume of Infosys equity shares traded on BSE and NSE during Q1 FY2027, and how did the combined volume compare with Q1 FY2026 as a percentage of average outstanding shares?",
+      "question_type": "market_activity_comparison",
+      "expected_answer": "Total BSE and NSE volume was 947,265,811 shares. Volume traded as a percentage of average outstanding shares was 25.52% in Q1 FY2027 versus 14.02% in Q1 FY2026, an increase of 11.50 percentage points.",
+      "expected_facts": [
+        "total_bse_nse_volume=947265811",
+        "q1_fy2027_volume_to_average_outstanding=25.52%",
+        "q1_fy2026_volume_to_average_outstanding=14.02%",
+        "change_percentage_points=11.50"
+      ],
+      "retrieval_targets": [
+        "Total Volume",
+        "94,72,65,811",
+        "25.52",
+        "14.02",
+        "Q1 FY 2027",
+        "Q1 FY 2026"
+      ],
+      "document": "q1-26-2027(1).pdf",
+      "relevant_pages": [
+        5
+      ],
+      "evidence": "Page 5 shareholder information reports total BSE and NSE volume of 94,72,65,811 shares and volume traded/average outstanding shares of 25.52% for Q1 FY2027 versus 14.02% for Q1 FY2026."
+    },
+    {
+      "question_id": "q012",
+      "question": "How many investor complaints were received, disposed of, and left unresolved at the end of Q1 FY2027, and what was the corresponding unresolved figure in Q1 FY2026?",
+      "question_type": "investor_services_metric",
+      "expected_answer": "In Q1 FY2027, 31 complaints were received, 32 were disposed of, and 0 remained unresolved at quarter-end. In Q1 FY2026, 20 were received, 20 were disposed of, and 1 remained unresolved.",
+      "expected_facts": [
+        "q1_fy2027_received=31",
+        "q1_fy2027_disposed=32",
+        "q1_fy2027_unresolved_end=0",
+        "q1_fy2026_received=20",
+        "q1_fy2026_disposed=20",
+        "q1_fy2026_unresolved_end=1"
+      ],
+      "retrieval_targets": [
+        "Investor services",
+        "Complaints Received",
+        "31",
+        "32",
+        "0",
+        "20",
+        "1",
+        "June 30, 2026"
+      ],
+      "document": "q1-26-2027(1).pdf",
+      "relevant_pages": [
+        5
+      ],
+      "evidence": "Page 5 shows the dividend/annual report related/others complaint figures: Q1 FY2027 began with 1 pending, received 31, disposed 32 and ended with 0 unresolved; Q1 FY2026 began with 1 pending, received 20, disposed 20 and ended with 1 unresolved."
+    }
+  ]
+}
