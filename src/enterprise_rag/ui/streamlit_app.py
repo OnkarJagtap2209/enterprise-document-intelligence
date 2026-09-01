@@ -18,8 +18,9 @@ def main() -> None:
     st.markdown(
         """
         <style>
-        /* Force a clean light application surface even when Streamlit's
-           global/browser theme is dark. */
+        /* ---------------------------------------------------------
+           Application surface
+           --------------------------------------------------------- */
         [data-testid="stAppViewContainer"],
         [data-testid="stAppViewContainer"] > .main,
         [data-testid="stHeader"] {
@@ -36,8 +37,30 @@ def main() -> None:
             padding-bottom: 3rem;
         }
 
-        h1, h2, h3, p, label, [data-testid="stCaptionContainer"] {
+
+        /* ---------------------------------------------------------
+           Typography
+           --------------------------------------------------------- */
+        h1, h2, h3, p, label,
+        [data-testid="stCaptionContainer"] {
             color: #1f2937 !important;
+        }
+
+        [data-testid="stCaptionContainer"] {
+            color: #475569 !important;
+            font-size: 0.95rem !important;
+        }
+
+        [data-testid="stSelectbox"] label,
+        [data-testid="stSelectbox"] div[role="button"] {
+            color: #1f2937 !important;
+            font-size: 0.95rem !important;
+        }
+
+        [data-testid="stSelectbox"] div[role="button"] {
+            background: #ffffff !important;
+            border: 1px solid #d6dee8 !important;
+            border-radius: 8px !important;
         }
 
         h1 {
@@ -46,6 +69,10 @@ def main() -> None:
             letter-spacing: -0.02em;
         }
 
+
+        /* ---------------------------------------------------------
+           Question text area
+           --------------------------------------------------------- */
         [data-testid="stTextArea"] textarea {
             background: #ffffff !important;
             color: #1f2937 !important;
@@ -58,23 +85,80 @@ def main() -> None:
             box-shadow: 0 0 0 1px #4f86c6 !important;
         }
 
-        /* Button text contrast */
+
+        /* ---------------------------------------------------------
+           Application buttons
+           --------------------------------------------------------- */
         [data-testid="stButton"] button {
             border-radius: 8px !important;
             font-weight: 600 !important;
+        }
+
+        /* Active application buttons */
+        [data-testid="stButton"] button:not(:disabled) {
             color: #ffffff !important;
         }
 
-        [data-testid="stButton"] button p,
-        [data-testid="stButton"] button span {
+        [data-testid="stButton"] button:not(:disabled) p,
+        [data-testid="stButton"] button:not(:disabled) span {
             color: #ffffff !important;
         }
 
+        /* Disabled buttons remain readable */
+        [data-testid="stButton"] button:disabled {
+            color: #64748b !important;
+            opacity: 0.75 !important;
+        }
+
+        [data-testid="stButton"] button:disabled p,
+        [data-testid="stButton"] button:disabled span {
+            color: #64748b !important;
+        }
+
+
+        /* ---------------------------------------------------------
+           PDF uploader
+           --------------------------------------------------------- */
+        [data-testid="stFileUploader"] button {
+            background: #ffffff !important;
+            color: #17324d !important;
+            border: 1px solid #d6dee8 !important;
+            border-radius: 8px !important;
+            font-weight: 600 !important;
+        }
+
+        [data-testid="stFileUploader"] button p,
+        [data-testid="stFileUploader"] button span {
+            color: #17324d !important;
+        }
+
+        [data-testid="stFileUploader"] button svg {
+            color: #17324d !important;
+            fill: #17324d !important;
+        }
+
+        [data-testid="stFileUploader"] small {
+            color: #475569 !important;
+            font-size: 0.9rem !important;
+        }
+
+        [data-testid="stFileUploader"]
+        [data-testid="stMarkdownContainer"] {
+            color: #64748b !important;
+        }
+
+
+        /* ---------------------------------------------------------
+           Alerts
+           --------------------------------------------------------- */
         [data-testid="stAlert"] {
             border-radius: 10px !important;
         }
 
-        /* Answer text contrast */
+
+        /* ---------------------------------------------------------
+           Answer card
+           --------------------------------------------------------- */
         .answer-card {
             background: #ffffff !important;
             color: #1f2937 !important;
@@ -90,6 +174,10 @@ def main() -> None:
             color: #1f2937 !important;
         }
 
+
+        /* ---------------------------------------------------------
+           Source cards
+           --------------------------------------------------------- */
         .source-card {
             background: #ffffff;
             border: 1px solid #e1e7ef;
@@ -104,21 +192,97 @@ def main() -> None:
         }
 
         .source-meta {
-            color: #64748b !important;
-            font-size: 0.9rem;
+            color: #475569 !important;
+            font-size: 0.95rem;
         }
 
         .request-id {
-            color: #64748b !important;
-            font-size: 0.78rem;
+            color: #475569 !important;
+            font-size: 0.82rem;
         }
+
+
+        /* ---------------------------------------------------------
+           Evaluation dashboard metric cards
+           --------------------------------------------------------- */
+        .metric-card {
+            background: #ffffff;
+            border: 1px solid #e1e7ef;
+            border-radius: 12px;
+            padding: 0.9rem 1rem;
+            min-height: 76px;
+        }
+
+        .metric-label {
+            color: #475569 !important;
+            font-size: 0.9rem;
+        }
+
+        .metric-value {
+            color: #17324d !important;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 0.25rem;
+        }
+
+        .evaluation-table-wrap {
+            background: #ffffff;
+            border: 1px solid #e1e7ef;
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+
+        .evaluation-table {
+            width: 100%;
+            border-collapse: collapse;
+            color: #1f2937;
+            font-size: 0.9rem;
+        }
+
+        .evaluation-table th {
+            background: #f7f9fc;
+            color: #17324d;
+            font-weight: 700;
+            text-align: left;
+        }
+
+        .evaluation-table th,
+        .evaluation-table td {
+            border-bottom: 1px solid #e1e7ef;
+            padding: 0.65rem 0.7rem;
+            white-space: nowrap;
+        }
+
+        .evaluation-table tr:last-child td { border-bottom: 0; }
         </style>
         """,
         unsafe_allow_html=True,
     )
 
+    # -------------------------------------------------------------
+    # Application title
+    # -------------------------------------------------------------
     st.title("Enterprise Document Intelligence")
 
+    # -------------------------------------------------------------
+    # Top-level navigation
+    # -------------------------------------------------------------
+    view = st.radio(
+        "View",
+        ("Ask Documents", "RAG Evaluation"),
+        horizontal=True,
+        label_visibility="collapsed",
+    )
+
+    if view == "RAG Evaluation":
+        from enterprise_rag.ui.evaluation_dashboard import render_dashboard
+
+        render_dashboard(st)
+        return
+
+    # -------------------------------------------------------------
+    # Ask Documents view
+    # -------------------------------------------------------------
     st.caption(
         "Ask questions and get grounded answers from your enterprise documents."
     )

@@ -27,7 +27,7 @@ class SentenceTransformerEmbeddingService:
             try:
                 from sentence_transformers import SentenceTransformer
 
-                model = SentenceTransformer(model_name)
+                model = SentenceTransformer(model_name, local_files_only=True)
             except Exception as exc:
                 raise EmbeddingError(f"Could not load embedding model: {exc}") from exc
 

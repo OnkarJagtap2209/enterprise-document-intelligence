@@ -1,5 +1,5 @@
 """Application orchestration boundary for the existing RAG components."""
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from typing import Any
 from enterprise_rag.routing import understand_query
 from enterprise_rag.observability import RuntimeTracer
@@ -12,19 +12,22 @@ class QueryOutcome:
     sources: tuple[Any, ...]
     request_id: str
     clarification_question: str | None = None
+    retrieved_sources: tuple[Any, ...] = ()
 
 class RAGService:
     def __init__(self, retriever: Any, generator: Any, reranker: Any | None = None, tracer: RuntimeTracer | None = None):
         self.retriever, self.generator, self.reranker, self.tracer = retriever, generator, reranker, tracer or RuntimeTracer(enabled=False)
 
-    def query(self, text: str) -> QueryOutcome:
+    def query(self, text: str, source_filename: str | None = None) -> QueryOutcome:
         trace = self.tracer.start(text)
         try:
             with self.tracer.stage(trace, "routing"):
                 routed = understand_query(text)
+            if source_filename is not None:
+                routed = replace(routed, constraints=replace(routed.constraints, source_filename=source_filename))
             if routed.clarification_required:
                 self.tracer.finish(trace, source_ids=())
-                return QueryOutcome(None, (), trace.request_id, routed.clarification_question)
+                return QueryOutcome(None, (), trace.request_id, routed.clarification_question, ())
             with self.tracer.stage(trace, "retrieval"):
                 results = self.retriever.retrieve(routed.retrieval_query, metadata_filter=routed.constraints)
             if self.reranker is not None:
@@ -34,7 +37,7 @@ class RAGService:
                 generated, context = self.generator.generate(routed.retrieval_query, results)
             sources = tuple(item for item in context if item.chunk_id in generated.source_ids)
             self.tracer.finish(trace, model_name=getattr(generated, "model_name", None), usage=getattr(generated, "usage", None), source_ids=generated.source_ids)
-            return QueryOutcome(generated.answer, sources, trace.request_id)
+            return QueryOutcome(generated.answer, sources, trace.request_id, None, tuple(context))
         except Exception as exc:
             self.tracer.fail(trace, "query", exc)
             raise
@@ -71,9 +74,9 @@ def build_default_service() -> RAGService:
 
 class LazyRAGService:
     def __init__(self): self._service = None
-    def query(self, text):
+    def query(self, text, source_filename=None):
         if self._service is None: self._service = build_default_service()
-        return self._service.query(text)
+        return self._service.query(text, source_filename=source_filename)
 
     def refresh(self) -> None:
         """Rebuild retrieval state so newly indexed documents are visible."""

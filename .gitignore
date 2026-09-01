@@ -23,6 +23,8 @@ data/chunks/
 data/indexes/
 data/evaluation/reports/
 data/evaluation/traces/
+data/evaluation/results/
+data/documents/
 
 # Editors and operating systems
 .idea/

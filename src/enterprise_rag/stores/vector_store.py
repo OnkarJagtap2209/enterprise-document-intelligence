@@ -152,9 +152,9 @@ class ChromaVectorStore:
         try:
             kwargs = {"query_embeddings": [vector], "n_results": min(top_k, record_count), "include": ["documents", "metadatas", "distances"]}
             if metadata_filter is not None:
-                from enterprise_rag.routing import QueryConstraints
+                from enterprise_rag.routing import QueryConstraints, normalize_source_filename
                 if isinstance(metadata_filter, QueryConstraints):
-                    where = {field: value for field, value in (("document_id", metadata_filter.document_id), ("source_filename", metadata_filter.source_filename), ("content_type", metadata_filter.content_type)) if value is not None}
+                    where = {field: (normalize_source_filename(value) if field == "source_filename" else value) for field, value in (("document_id", metadata_filter.document_id), ("source_filename", metadata_filter.source_filename), ("content_type", metadata_filter.content_type)) if value is not None}
                     if where: kwargs["where"] = where
             response = self.collection.query(
                 **kwargs,

@@ -49,9 +49,11 @@ class SemanticRetriever:
             matches = self.vector_store.semantic_query(query_embedding, selected_top_k)
         else:
             query_depth = selected_top_k
-            if metadata_filter.year is not None and hasattr(self.vector_store, "count"):
+            if hasattr(self.vector_store, "count"):
                 query_depth = max(selected_top_k, int(self.vector_store.count()))
-            matches = self.vector_store.semantic_query(query_embedding, query_depth)
+            matches = self.vector_store.semantic_query(
+                query_embedding, query_depth, metadata_filter=metadata_filter
+            )
         results = tuple(
             SemanticRetrievalResult(
                 chunk_id=match.chunk_id,
